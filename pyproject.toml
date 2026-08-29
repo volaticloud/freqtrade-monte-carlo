@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "freqtrade-monte-carlo"
+version = "0.1.0"
+description = "Turn one Freqtrade backtest into a distribution of outcomes."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+keywords = ["freqtrade", "monte-carlo", "backtesting", "risk-of-ruin", "algorithmic-trading", "drawdown"]
+authors = [{ name = "VolatiCloud" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/volaticloud/freqtrade-monte-carlo"
+Issues = "https://github.com/volaticloud/freqtrade-monte-carlo/issues"
+
+[project.scripts]
+freqtrade-monte-carlo = "freqtrade_monte_carlo.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/freqtrade_monte_carlo"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,515 @@
+[
+  {
+    "name": "mixed_wins_and_losses",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 50,
+        "profit_ratio": 0.05,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 1,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -30,
+        "profit_ratio": -0.03,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 1,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 80,
+        "profit_ratio": 0.08,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 1,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -20,
+        "profit_ratio": -0.02,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 1,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "expected": {
+      "curve": [
+        1000,
+        1050,
+        1020,
+        1100,
+        1080
+      ],
+      "finalBalance": 1080,
+      "minBalance": 1000,
+      "maxDrawdown": 0.02857142857142857,
+      "sharpe": 7.49363791171243,
+      "sortino": 23.038726501131947,
+      "profitFactor": 2.6,
+      "winRate": 0.5
+    }
+  },
+  {
+    "name": "blowup_floors_at_zero",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": -60,
+        "profit_ratio": -0.6,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -80,
+        "profit_ratio": -0.8,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 10,
+        "profit_ratio": 0.1,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 100,
+    "expected": {
+      "curve": [
+        100,
+        40,
+        0,
+        10
+      ],
+      "finalBalance": 10,
+      "minBalance": 0,
+      "maxDrawdown": 1,
+      "sharpe": -16.13301774632928,
+      "sortino": -13.734596598767903,
+      "profitFactor": 0.07142857142857142,
+      "winRate": 0.3333333333333333
+    }
+  },
+  {
+    "name": "all_winners_infinite_ratios",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 10,
+        "profit_ratio": 0.01,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 20,
+        "profit_ratio": 0.02,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 15,
+        "profit_ratio": 0.015,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "expected": {
+      "curve": [
+        1000,
+        1010,
+        1030,
+        1045
+      ],
+      "finalBalance": 1045,
+      "minBalance": 1000,
+      "maxDrawdown": 0,
+      "sharpe": 57.602181335976766,
+      "sortino": 1000000000,
+      "profitFactor": 1000000000,
+      "winRate": 1
+    }
+  },
+  {
+    "name": "all_losers",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": -10,
+        "profit_ratio": -0.01,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -20,
+        "profit_ratio": -0.02,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -15,
+        "profit_ratio": -0.015,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "expected": {
+      "curve": [
+        1000,
+        990,
+        970,
+        955
+      ],
+      "finalBalance": 955,
+      "minBalance": 955,
+      "maxDrawdown": 0.045,
+      "sharpe": -56.96332337428936,
+      "sortino": -18.426546800206864,
+      "profitFactor": 0,
+      "winRate": 0
+    }
+  },
+  {
+    "name": "single_trade_no_ratios",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 25,
+        "profit_ratio": 0.025,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "expected": {
+      "curve": [
+        1000,
+        1025
+      ],
+      "finalBalance": 1025,
+      "minBalance": 1000,
+      "maxDrawdown": 0,
+      "sharpe": 0,
+      "sortino": 0,
+      "profitFactor": 1000000000,
+      "winRate": 1
+    }
+  },
+  {
+    "name": "parametric_compounds_on_balance",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 0,
+        "profit_ratio": 0.05,
+        "is_parametric": true,
+        "is_win": true,
+        "fee_amount": 2,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 0,
+        "profit_ratio": -0.03,
+        "is_parametric": true,
+        "is_win": false,
+        "fee_amount": 2,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 0,
+        "profit_ratio": 0.04,
+        "is_parametric": true,
+        "is_win": true,
+        "fee_amount": 2,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "includeFees": true,
+    "expected": {
+      "curve": [
+        1000,
+        1048,
+        1014.56,
+        1053.1424
+      ],
+      "finalBalance": 1053.1424,
+      "minBalance": 1000,
+      "maxDrawdown": 0.031908396946564936,
+      "sharpe": 7.915287538542655,
+      "sortino": 18.708589909494485,
+      "profitFactor": 2.589186602870814,
+      "winRate": 0.6666666666666666
+    }
+  },
+  {
+    "name": "fee_override_reverses_original",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 50,
+        "profit_ratio": 0.05,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 5,
+        "original_fee_amount": 1
+      },
+      {
+        "profit_abs": -30,
+        "profit_ratio": -0.03,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 5,
+        "original_fee_amount": 1
+      }
+    ],
+    "initialCapital": 1000,
+    "includeFees": true,
+    "feeOverridden": true,
+    "expected": {
+      "curve": [
+        1000,
+        1046,
+        1012
+      ],
+      "finalBalance": 1012,
+      "minBalance": 1000,
+      "maxDrawdown": 0.032504780114722756,
+      "sharpe": 2.3222838291134056,
+      "sortino": 5.608725262102247,
+      "profitFactor": 1.3529411764705883,
+      "winRate": 0.5
+    }
+  },
+  {
+    "name": "risk_free_rate_shifts_ratios",
+    "kind": "equity_curve",
+    "trades": [
+      {
+        "profit_abs": 50,
+        "profit_ratio": 0.05,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -30,
+        "profit_ratio": -0.03,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": 80,
+        "profit_ratio": 0.08,
+        "is_parametric": false,
+        "is_win": true,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      },
+      {
+        "profit_abs": -20,
+        "profit_ratio": -0.02,
+        "is_parametric": false,
+        "is_win": false,
+        "fee_amount": 0,
+        "original_fee_amount": 0
+      }
+    ],
+    "initialCapital": 1000,
+    "riskFreeRate": 3.65,
+    "expected": {
+      "curve": [
+        1000,
+        1050,
+        1020,
+        1100,
+        1080
+      ],
+      "finalBalance": 1080,
+      "minBalance": 1000,
+      "maxDrawdown": 0.02857142857142857,
+      "sharpe": 3.823799585377938,
+      "sortino": 8.334310080328907,
+      "profitFactor": 2.6,
+      "winRate": 0.5
+    }
+  },
+  {
+    "name": "dist_odd_count",
+    "kind": "distribution",
+    "values": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70
+    ],
+    "levels": [
+      5,
+      25,
+      50,
+      75,
+      95
+    ],
+    "expected": {
+      "min": 10,
+      "max": 70,
+      "mean": 40,
+      "std": 21.602468994692867,
+      "percentiles": {
+        "p25": 25,
+        "p5": 13,
+        "p50": 40,
+        "p75": 55,
+        "p95": 67
+      }
+    }
+  },
+  {
+    "name": "dist_even_count_interpolates",
+    "kind": "distribution",
+    "values": [
+      10,
+      20,
+      30,
+      40
+    ],
+    "levels": [
+      5,
+      25,
+      50,
+      75,
+      95
+    ],
+    "expected": {
+      "min": 10,
+      "max": 40,
+      "mean": 25,
+      "std": 12.909944487358056,
+      "percentiles": {
+        "p25": 17.5,
+        "p5": 11.5,
+        "p50": 25,
+        "p75": 32.5,
+        "p95": 38.5
+      }
+    }
+  },
+  {
+    "name": "dist_single_value",
+    "kind": "distribution",
+    "values": [
+      42
+    ],
+    "levels": [
+      5,
+      25,
+      50,
+      75,
+      95
+    ],
+    "expected": {
+      "min": 42,
+      "max": 42,
+      "mean": 42,
+      "std": 0,
+      "percentiles": {
+        "p25": 42,
+        "p5": 42,
+        "p50": 42,
+        "p75": 42,
+        "p95": 42
+      }
+    }
+  },
+  {
+    "name": "dist_unsorted_input",
+    "kind": "distribution",
+    "values": [
+      70,
+      10,
+      50,
+      30,
+      20,
+      60,
+      40
+    ],
+    "levels": [
+      5,
+      25,
+      50,
+      75,
+      95
+    ],
+    "expected": {
+      "min": 10,
+      "max": 70,
+      "mean": 40,
+      "std": 21.602468994692867,
+      "percentiles": {
+        "p25": 25,
+        "p5": 13,
+        "p50": 40,
+        "p75": 55,
+        "p95": 67
+      }
+    }
+  },
+  {
+    "name": "dist_negatives",
+    "kind": "distribution",
+    "values": [
+      -5,
+      -1,
+      0,
+      3,
+      9
+    ],
+    "levels": [
+      0,
+      50,
+      100
+    ],
+    "expected": {
+      "min": -5,
+      "max": 9,
+      "mean": 1.2,
+      "std": 5.215361924162119,
+      "percentiles": {
+        "p0": -5,
+        "p100": 9,
+        "p50": 0
+      }
+    }
+  }
+]

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 is the floor declared in pyproject, so test it and make the floor real.
+        python-version: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+
+  package:
+    # Packaging breaks silently — a bad pyproject still passes the tests and only
+    # fails at release, which is the worst time to find out. Build every push.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade build twine
+      - name: Build sdist + wheel
+        run: python -m build
+      - name: Check metadata renders on PyPI
+        run: python -m twine check --strict dist/*
+      - name: Install the wheel and run the CLI from it
+        run: |
+          python -m pip install dist/*.whl
+          python - > /tmp/smoke.json <<'EOF'
+          import json
+          trades = [{"profit_abs": (5 if i % 2 else -3), "profit_ratio": 0.005} for i in range(40)]
+          print(json.dumps({"strategy": {"S": {"trades": trades}}}))
+          EOF
+          freqtrade-monte-carlo run /tmp/smoke.json --iterations 100 --seed 1
+          freqtrade-monte-carlo --help > /dev/null
